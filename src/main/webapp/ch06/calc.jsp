@@ -9,7 +9,7 @@
 <body style="margin: 50px">
 	<h1>Simple Calculator</h1>
 	<hr>
-	<form action="/jw/ch06/calc" method="post">
+	<form action="/jw/ch06/calc2" method="post">
 		<input type="text" name="num1" value="${num1}">
 		<select name="op">
 			<option value ="+" selected>＋</option>

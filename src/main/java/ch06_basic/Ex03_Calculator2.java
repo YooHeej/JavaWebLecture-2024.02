@@ -18,7 +18,7 @@ public class Ex03_Calculator2 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String num1_ = request.getParameter("num1");
 		String num2_ = request.getParameter("num2");
-		String result_ = request.getParameter("resutl");
+		String result_ = request.getParameter("result");
 		int num1 = (num1_ == null) ? 0 : Integer.parseInt(num1_);
 		int num2 = (num2_ == null) ? 0 : Integer.parseInt(num2_);
 		int result = (result_ == null) ? 0 : Integer.parseInt(result_);
@@ -58,11 +58,11 @@ public class Ex03_Calculator2 extends HttpServlet {
 		}
 		
 		// calc.jsp(Servlet)을 직접 호출
-//		RequestDispatcher rd = request.getRequestDispatcher("/ch06/calc.jsp");
-//		request.setAttribute("num1", num1);
-//		request.setAttribute("num2", num2);
-//		request.setAttribute("result", result);
-//		rd.forward(request, response);
+		RequestDispatcher rd = request.getRequestDispatcher("/ch06/calc.jsp");
+		request.setAttribute("num1", num1);
+		request.setAttribute("num2", num2);
+		request.setAttribute("result", result);
+		rd.forward(request, response);
 		
 		// 리디렉션 이용
 		// Server --> Client --> Server
