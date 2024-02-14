@@ -59,4 +59,14 @@
     <servlet-name>Ex03_Calculator</servlet-name>
     <url-pattern>/Ex03_Calculator</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Ex04_RegisterMamber</display-name>
+    <servlet-name>Ex04_RegisterMamber</servlet-name>
+    <servlet-class>ch06_basic.Ex04_RegisterMamber</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Ex04_RegisterMamber</servlet-name>
+    <url-pattern>/Ex04_RegisterMamber</url-pattern>
+  </servlet-mapping>
 </web-app>
