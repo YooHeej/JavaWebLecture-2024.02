@@ -13,7 +13,7 @@ public class Ex01_Search extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = request.getParameter("id") == null ? 2340 : Integer.parseInt(request.getParameter("id"));
+		int id = (request.getParameter("id") == null) ? 2340 : Integer.parseInt(request.getParameter("id"));
 		
 		CityDao cDao = new CityDao();
 		City city = cDao.getCity(id);

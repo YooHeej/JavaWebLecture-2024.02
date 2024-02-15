@@ -3,12 +3,14 @@ package ch07_dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import com.mysql.cj.protocol.Resultset;
+
 
 //Web에서 DB를 액세스하는 방법 : DBCP (DataBase Connection Pool)
 //
@@ -31,7 +33,7 @@ public class CityDao {
 	
 	public City getCity(int id) {
 		Connection conn = getConnection();
-		String sql = "select * from city where id=?";
+		String sql = "select * from kcity where id=?";
 		City city = null;
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -46,4 +48,27 @@ public class CityDao {
 			e.printStackTrace();
 		}	return city;
 	}
+	
+	public List<City> getCityList(String district, int num, int offset) {
+		Connection conn = getConnection();
+		String sql = "select * from kcity where district=? limit ? offset ?";
+		List<City> list = new ArrayList<City>();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, district);
+			pstmt.setInt(2, num);
+			pstmt.setInt(3, offset);
+			
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				City city = new City(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5));
+				
+				list.add(city);
+			}
+			rs.close(); pstmt.close(); conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} return list;
+	}
+	
 }
