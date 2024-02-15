@@ -31,6 +31,12 @@ public class Ex05_Update extends HttpServlet {
 		String district = request.getParameter("district");
 		String population_ = request.getParameter("population");
 		int population = (population_.equals("")) ? 0 : Integer.parseInt(population_);
+		City city  = new City(id, name, countryCode, district, population);
+		
+		CityDao cDao = new CityDao();
+		cDao.updateCity(city);
+		
+		response.sendRedirect("/jw/ch07/city/list?district=" + district + "&num=30&offset=0");
 	}
 
 }

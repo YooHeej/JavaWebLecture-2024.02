@@ -104,4 +104,22 @@ public class CityDao {
 		}
 		
 	}
+	
+	public void updateCity(City city) {
+		Connection conn = getConnection();
+		String sql = "update kcity set name=?, countrycode=?, district=?, population=? where id=?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, city.getName());
+			pstmt.setString(2, city.getCountrycode());
+			pstmt.setString(3, city.getDistrict());
+			pstmt.setInt(4, city.getPopulation());
+			pstmt.setInt(5, city.getId());
+			
+			pstmt.executeUpdate();
+			pstmt.close(); conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
