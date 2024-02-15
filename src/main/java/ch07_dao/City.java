@@ -8,6 +8,14 @@ public class City {
 	private int population;
 	
 	public City() {	}
+	
+	public City(String name, String countrycode, String district, int population) {
+		super();
+		this.name = name;
+		this.countrycode = countrycode;
+		this.district = district;
+		this.population = population;
+	}
 
 	public City(int id, String name, String countrycode, String district, int population) {
 		super();
