@@ -27,11 +27,11 @@ public class Ex05_Update extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		String name = request.getParameter("name");
-		String countryCode = request.getParameter("countryCode");
+		String countrycode = request.getParameter("countryCode");
 		String district = request.getParameter("district");
 		String population_ = request.getParameter("population");
 		int population = (population_.equals("")) ? 0 : Integer.parseInt(population_);
-		City city  = new City(id, name, countryCode, district, population);
+		City city  = new City(id, name, countrycode, district, population);
 		
 		CityDao cDao = new CityDao();
 		cDao.updateCity(city);
