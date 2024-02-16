@@ -159,4 +159,14 @@
     <servlet-name>KcityControlle</servlet-name>
     <url-pattern>/KcityControlle</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>KpopDao</display-name>
+    <servlet-name>KpopDao</servlet-name>
+    <servlet-class>ch07_dao.kpop.KpopDao</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>KpopDao</servlet-name>
+    <url-pattern>/KpopDao</url-pattern>
+  </servlet-mapping>
 </web-app>
