@@ -1,4 +1,4 @@
-package src.main.java.ch07_dao.kpop;
+package ch07_dao.kpop;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;

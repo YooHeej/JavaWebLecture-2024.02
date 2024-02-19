@@ -32,6 +32,9 @@ public class KpopDaoImpl implements KpopDao {
 		String sql = "SELECT g.*, s.title, s.lyrics FROM girl_group g"
 					+ "  JOIN song s ON g.hit_song_id=s.sid"
 					+ "  ORDER BY gid desc";
+		
+//		String sql = ""
+		
 		List<Kpop> list = new ArrayList<Kpop>();
 		try {
 			Statement stmt = conn.createStatement();
