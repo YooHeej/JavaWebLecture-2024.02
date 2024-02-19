@@ -209,4 +209,14 @@
     <servlet-name>Ex04_GetCookie</servlet-name>
     <url-pattern>/Ex04_GetCookie</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserController</display-name>
+    <servlet-name>UserController</servlet-name>
+    <servlet-class>ch09_cookie_session.user.UserController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserController</servlet-name>
+    <url-pattern>/UserController</url-pattern>
+  </servlet-mapping>
 </web-app>
