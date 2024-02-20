@@ -11,12 +11,14 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 @WebServlet({"/ch09/user/list", "/ch09/user/register", "/ch09/user/update", "/ch09/user/delete",
 				"/ch09/user/login", "/ch09/user/logout"})
 
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UserService uSvc = new UserServiceImpl(); 
+	private UserService uSvc = new UserServiceImpl();
     
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String[] uri = request.getRequestURI().split("/");
@@ -72,11 +74,35 @@ public class UserController extends HttpServlet {
 			break;
 			
 		case "register":
-			rd = request.getRequestDispatcher("/ch09/user/register.jsp");
-			rd.forward(request, response);
-			break;
+			if (method.equals("GET")) {
+				session.invalidate();
+				rd = request.getRequestDispatcher("/ch09/user/register.jsp");
+				rd.forward(request, response);
+				
+			} else {
+				uid = request.getParameter("uid");
+				pwd = request.getParameter("pwd");
+				pwd2 = request.getParameter("pwd2");
+				uname = request.getParameter("uname");
+				email = request.getParameter("email");
+				if (uSvc.getUserByUid(uid) != null) {
+					rd = request.getRequestDispatcher("/ch09/user/alertMsg.jsp");
+					request.setAttribute("msg", "아이디가 중복입니다.");
+					request.setAttribute("url", "/jw/ch09/user/register");
+					rd.forward(request, response);
+				} else if (pwd.equals(pwd2)) {
+						user = new User(uid, pwd, uname, email);
+						uSvc.registerUser(user);
+						response.sendRedirect("/jw/ch09/user/list?page=1");
+			} else {
+					rd = request.getRequestDispatcher("/ch09/user/register.jsp");
+					request.setAttribute("msg",  "패스워드 입력이 잘못되었습니다.");
+					request.setAttribute("url", "/jw/ch09/user/register");
+					rd.forward(request, response);
+			}
+		}
+		break;
+
 		}
 	}
-
-	
 }
