@@ -56,10 +56,5 @@ public class UserServiceImpl implements UserService {
 			return CORRECT_LOGIN;
 		return WRONG_PASSWORD;
 	}
-
-	@Override
-	public void close() {
-	
-	}
 		
 }

@@ -20,6 +20,4 @@ public interface UserService {
 	
 	int login(String uid, String pwd);
 	
-	void close();
-	
 }

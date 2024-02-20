@@ -28,7 +28,7 @@
 				<li class="nav-item ms-3">
 				<c:if test="${empty sessUid }">
 					<a class="nav-link" href="/jw/ch09/user/login">
-					<i class="fas fa-sing-in-alt"></i> 로그인</a>
+						<i class="fas fa-sing-in-alt"></i> 로그인</a>
 				</c:if>
 				<c:if test="${not empty sessUid }">
 					<a class="nav-link" href="jw/ch09/user/logout">

@@ -29,7 +29,6 @@ public class UserDao {
 	public User getUserByUid(String uid) {
 		Connection conn = getConnection();
 		String sql = "select * from users where uid=?";
-//		User user = new User();
 		User user = null;
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
