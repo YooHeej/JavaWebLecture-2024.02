@@ -128,7 +128,7 @@ public class UserDao {
 	
 	public int getUserCount() {
 		Connection conn = getConnection();
-		String sql = "select count(uid) from users where isDeleted=0";
+		String sql = "select count(uid) from users where isDelete=0";
 		int count = 0;
 		try {
 			Statement stmt = conn.createStatement();

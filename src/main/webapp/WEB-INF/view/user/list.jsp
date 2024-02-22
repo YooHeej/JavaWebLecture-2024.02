@@ -68,7 +68,7 @@
 							</li>
 						</c:forEach>
 							<li class="page-item"><a class="page-link" href="#"><i class="fa-solid fa-greater-than"></i></a></li>
-							</ul>
+						</ul>
 					</div>
 					<div class="col-1"></div>
 				</div>
@@ -77,6 +77,8 @@
 	</div>
 	
 	<%@ include file="../common/_bottom.jspf" %>
+	
+	
 	<div class="modal" id="deleteModal">
 		<div class="modal-dialog">
 			<div class="modal-content">

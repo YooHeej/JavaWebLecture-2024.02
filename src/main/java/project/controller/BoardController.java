@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import project.entity.Board;
+import project.entity.Reply;
 import project.service.BoardService;
 import project.service.BoardServiceImpl;
 
@@ -27,6 +28,9 @@ public class BoardController extends HttpServlet {
 		String method = request.getMethod();
 		HttpSession session = request.getSession();
 		RequestDispatcher rd = null;
+		String title = "", content = "", sessUid = "";
+		Board board = null;
+		int bid;
 		
 		switch(action) {
 		case "list":					// /jw/bbs/board/list?p=1&f=title&q=검색
@@ -37,6 +41,8 @@ public class BoardController extends HttpServlet {
 			session.setAttribute("currentBoardPage", page);
 			field = (field == null || field.equals("")) ? "title" : field;
 			query = (query == null || query.equals("")) ? "": query;
+			request.setAttribute("field", field);
+			request.setAttribute("query", query);
 			List<Board> boardList = bSvc.getBoardList(page, field, query);
 			request.setAttribute("boardList", boardList);
 			
@@ -51,7 +57,37 @@ public class BoardController extends HttpServlet {
 			rd.forward(request, response);
 			break;
 		
+		case "insert":
+			sessUid = (String) session.getAttribute("sessUid");
+			if (sessUid == null || sessUid.equals("")) {
+				response.sendRedirect("/jw/bbs/user/login");
+				break;
+			}	
+			if (method.equals("GET")) {
+				rd = request.getRequestDispatcher("/WEB-INF/view/board/insert.jsp");
+				rd.forward(request, response);
+			} else {
+				title =request.getParameter("title");
+				content = request.getParameter("content");
+				board = new Board(title, content, sessUid);
+				bSvc.insertBoard(board);
+				response.sendRedirect("/jw/bbs/board/list?p=1");
+			}
+			break;
+			
+		case "detail":
+			bid = Integer.parseInt(request.getParameter("bid"));
+			bSvc.increaseViewCount(bid);
+			
+			board = bSvc.getBoard(bid);
+			request.setAttribute("board", board);
+			
+			List<Reply> replyList = null;						// 댓글 목록 필요
+			request.setAttribute("replyList", replyList);
+			
+			rd = request.getRequestDispatcher("/WEB-INF/view/board/detail.jsp");
+			rd.forward(request, response);
+			break;
 		}
 	}
-
 }

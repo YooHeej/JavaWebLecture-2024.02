@@ -19,7 +19,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public Board getBoard(int bid) {
-		return null;
+		return bDao.getBoard(bid);
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void insertBoard(Board board) {
-		// TODO Auto-generated method stub
+		bDao.insertBoard(board);
 		
 	}
 
@@ -47,13 +47,13 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void increaseViewCount(int bid) {
-		// TODO Auto-generated method stub
+		bDao.increaseCount("view", bid); 
 		
 	}
 
 	@Override
 	public void increaseReplyCount(int bid) {
-		// TODO Auto-generated method stub
+		bDao.increaseCount("reply", bid);
 		
 	}
 
