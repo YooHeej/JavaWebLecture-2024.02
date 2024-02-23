@@ -8,7 +8,7 @@ public class User {
 	private String uname;
 	private String email;
 	private LocalDate regDate;
-	private int isDeleted;
+	private int isDelete;
 	
 	public User() {	}
 	
@@ -19,19 +19,19 @@ public class User {
 		this.email = email;
 	}
 
-	public User(String uid, String pwd, String uname, String email, LocalDate regDate, int isDeleted) {
+	public User(String uid, String pwd, String uname, String email, LocalDate regDate, int isDelete) {
 		this.uid = uid;
 		this.pwd = pwd;
 		this.uname = uname;
 		this.email = email;
 		this.regDate = regDate;
-		this.isDeleted = isDeleted;
+		this.isDelete = isDelete;
 	}
 
 	@Override
 	public String toString() {
 		return "User [uid=" + uid + ", uname=" + uname + ", email=" + email + ", regDate=" + regDate
-				+ ", isDeleted=" + isDeleted + "]";
+				+ ", isDelete=" + isDelete + "]";
 	}
 
 	public String getUid() {
@@ -75,11 +75,11 @@ public class User {
 	}
 
 	public int getIsDeleted() {
-		return isDeleted;
+		return isDelete;
 	}
 
-	public void setIsDeleted(int isDeleted) {
-		this.isDeleted = isDeleted;
+	public void setIsDeleted(int isDelete) {
+		this.isDelete = isDelete;
 	}
 	
 }

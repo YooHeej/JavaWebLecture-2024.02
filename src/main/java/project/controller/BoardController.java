@@ -13,6 +13,7 @@ import project.service.BoardService;
 import project.service.BoardServiceImpl;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,25 +29,27 @@ public class BoardController extends HttpServlet {
 		String method = request.getMethod();
 		HttpSession session = request.getSession();
 		RequestDispatcher rd = null;
-		String title = "", content = "", sessUid = "";
+		String title = "", content = "", field = "", query = "", page_ = "", uid = "";
 		Board board = null;
-		int bid;
+		int bid = 0, page = 0;
+		String sessUid = (String) session.getAttribute("sessUid");
 		
 		switch(action) {
 		case "list":					// /jw/bbs/board/list?p=1&f=title&q=검색
-			String page_ = request.getParameter("p");
-			String field = request.getParameter("f");
-			String query = request.getParameter("q");
-			int page = (page_ == null || page_.equals("")) ? 1 : Integer.parseInt(page_);
+			page_ = request.getParameter("p");
+			field = request.getParameter("f");
+			query = request.getParameter("q");
+			page = (page_ == null || page_.equals("")) ? 1 : Integer.parseInt(page_);
 			session.setAttribute("currentBoardPage", page);
 			field = (field == null || field.equals("")) ? "title" : field;
 			query = (query == null || query.equals("")) ? "": query;
-			request.setAttribute("field", field);
-			request.setAttribute("query", query);
+			session.setAttribute("field", field);
+			session.setAttribute("query", query);
 			List<Board> boardList = bSvc.getBoardList(page, field, query);
 			request.setAttribute("boardList", boardList);
 			
-			int totalItems = bSvc.getBoardCount();
+			// for pagination
+			int totalItems = bSvc.getBoardCount(field, query);
 			int totalPages = (int) Math.ceil(totalItems * 1.0 / bSvc.COUNT_PER_PAGE);
 			List<String> pageList = new ArrayList<String>();
 			for (int i = 1; i <= totalPages; i++)
@@ -58,7 +61,6 @@ public class BoardController extends HttpServlet {
 			break;
 		
 		case "insert":
-			sessUid = (String) session.getAttribute("sessUid");
 			if (sessUid == null || sessUid.equals("")) {
 				response.sendRedirect("/jw/bbs/user/login");
 				break;
@@ -77,7 +79,9 @@ public class BoardController extends HttpServlet {
 			
 		case "detail":
 			bid = Integer.parseInt(request.getParameter("bid"));
-			bSvc.increaseViewCount(bid);
+			uid = request.getParameter("uid");
+			if (!uid.equals(sessUid))
+				bSvc.increaseViewCount(bid);
 			
 			board = bSvc.getBoard(bid);
 			request.setAttribute("board", board);
@@ -87,6 +91,35 @@ public class BoardController extends HttpServlet {
 			
 			rd = request.getRequestDispatcher("/WEB-INF/view/board/detail.jsp");
 			rd.forward(request, response);
+			break;
+			
+		case "delete":
+			bid = Integer.parseInt(request.getParameter("bid"));
+			bSvc.deleteBorad(bid);
+			page = (Integer) session.getAttribute("currentBoardPage");
+			field  = (String) session.getAttribute("field");
+			query = (String) session.getAttribute("query");
+			query = URLEncoder.encode(query, "utf-8");
+			response.sendRedirect("/jw/bbs/board/list?p=" + page + "&f=" + field + "&q=" + query);
+			break;
+			
+		case "update":
+			if (method.equals("GET")) {
+				bid = Integer.parseInt(request.getParameter("bid"));
+				board = bSvc.getBoard(bid);
+				request.setAttribute("board", board);
+				rd = request.getRequestDispatcher("/WEB-INF/view/board/update.jsp");
+				rd.forward(request, response);
+			} else {
+				bid = Integer.parseInt(request.getParameter("bid"));
+				uid = request.getParameter("uid");
+				title = request.getParameter("title");
+				content = request.getParameter("content");
+				board = new Board(bid, title, content);
+				
+				bSvc.updateBoard(board);
+				response.sendRedirect("/jw/bbs/board/detail?bid=" + bid + "&uid=" + uid);
+			}
 			break;
 		}
 	}

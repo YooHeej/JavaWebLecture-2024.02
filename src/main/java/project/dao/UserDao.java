@@ -114,7 +114,7 @@ public class UserDao {
 	
 	public void deleteUser(String uid) {
 		Connection conn = getConnection();
-		String sql = "update users set isDeleted=1 where uid=?";
+		String sql = "update users set isDelete=1 where uid=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, uid);
