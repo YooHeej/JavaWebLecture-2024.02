@@ -52,10 +52,9 @@ public class DogDao {
 		List<Dog> list = new ArrayList<Dog>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, field);
-			pstmt.setString(2, query);
-			pstmt.setInt(3, num);
-			pstmt.setInt(4, offset);
+			pstmt.setString(1, query);
+			pstmt.setInt(2, num);
+			pstmt.setInt(3, offset);
 			
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
