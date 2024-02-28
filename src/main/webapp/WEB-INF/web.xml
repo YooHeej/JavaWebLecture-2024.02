@@ -219,25 +219,6 @@
     <servlet-name>UserController</servlet-name>
     <url-pattern>/UserController</url-pattern>
   </servlet-mapping>
-  <filter>
-    <display-name>EncodingFilter</display-name>
-    <filter-name>EncodingFilter</filter-name>
-    <filter-class>ch10_filter.EncodingFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>EncodingFilter</filter-name>
-    <url-pattern>/EncodingFilter</url-pattern>
-  </filter-mapping>
-  <servlet>
-    <description></description>
-    <display-name>FilterTest</display-name>
-    <servlet-name>FilterTest</servlet-name>
-    <servlet-class>ch10_filter.FilterTest</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>FilterTest</servlet-name>
-    <url-pattern>/FilterTest</url-pattern>
-  </servlet-mapping>
   <servlet>
     <description></description>
     <display-name>Ex02_BuiltinObject</display-name>
@@ -287,5 +268,15 @@
   <servlet-mapping>
     <servlet-name>BoardController</servlet-name>
     <url-pattern>/BoardController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProductController</display-name>
+    <servlet-name>ProductController</servlet-name>
+    <servlet-class>project.controller.ProductController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProductController</servlet-name>
+    <url-pattern>/ProductController</url-pattern>
   </servlet-mapping>
 </web-app>
