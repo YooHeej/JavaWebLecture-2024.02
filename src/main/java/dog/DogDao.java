@@ -28,7 +28,7 @@ public class DogDao {
 	
 	public Dog getDog(int dogId) {
 		Connection conn = getConnection();
-		String sql = "select * from dog where dogId=?";
+		String sql = "SELECT d.* u.uId FROM dog JOIN users ON u.uId=d.uId WHERE d.dogId=?";
 		Dog dog = null;
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -48,7 +48,7 @@ public class DogDao {
 	
 	public List<Dog> getDogList(String field, String query, int num, int offset) {
 		Connection conn = getConnection();
-		String sql = "select * from dogs where " + field + " = ? limit ? offset ?";
+		String sql = "SELECT d.* u.uId FROM dog JOIN users ON u.uId=d.uId WHERE " + field + " = ? LIMIT ? OFFSET ?";
 		List<Dog> list = new ArrayList<Dog>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
