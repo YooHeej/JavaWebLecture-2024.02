@@ -33,7 +33,6 @@ public class Dog {
 	
 	
 	public Dog(String breed, String dname, String uId) {
-		super();
 		this.breed = breed;
 		this.dname = dname;
 		this.uId = uId;

@@ -34,7 +34,7 @@ public class DogController extends HttpServlet {
 		Dog dog = null;
 		int dogId = 0, page = 0;
 		
-		String sessUId = (String) session.getAttribute("sessUId");
+		String sessUid = (String) session.getAttribute("sessUid");
 		
 		switch(action) {
 		case "list":
@@ -63,7 +63,7 @@ public class DogController extends HttpServlet {
 			break;
 			
 		case "insert":
-			if (sessUId == null || sessUId.equals("")) {
+			if (sessUid == null || sessUid.equals("")) {
 				response.sendRedirect("/jw/dog/user/login");
 				break;
 			}	
@@ -75,7 +75,7 @@ public class DogController extends HttpServlet {
 				breed = request.getParameter("breed");
 				gender = request.getParameter("gender");
 				dname = request.getParameter("dname");
-				dog = new Dog(null, breed, gender, dname, sessUId);
+				dog = new Dog(null, breed, gender, dname, sessUid);
 				dSvc.insertDog(dog);
 				response.sendRedirect("/jw/dog/dog/list?p=1");
 			}

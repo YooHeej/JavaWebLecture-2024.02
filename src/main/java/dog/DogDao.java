@@ -18,7 +18,7 @@ public class DogDao {
 		Connection conn = null;
 		try {
 			Context initContext = new InitialContext();
-			DataSource ds = (DataSource) initContext.lookup("java:comp/env/" + "jdbc/bbs");
+			DataSource ds = (DataSource) initContext.lookup("java:comp/env/" + "jdbc/dog");
 			conn = ds.getConnection();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -28,9 +28,7 @@ public class DogDao {
 	
 	public Dog getDog(int dogId) {
 		Connection conn = getConnection();
-		String sql = "SELECT d.*, u.uId FROM dog d"
-				+ "	JOIN user u ON d.uId=u.uId"
-				+ "	WHERE d.dogId=?";
+		String sql = "select * from dog where dogId=?";
 		Dog dog = null;
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -50,11 +48,7 @@ public class DogDao {
 	
 	public List<Dog> getDogList(String field, String query, int num, int offset) {
 		Connection conn = getConnection();
-		String sql = "SELECT d.*, u.uId FROM dog d"
-				+ "	JOIN user u ON d.uId=u.uId"
-				+ "	WHERE d. AND "
-				+ "	ORDER BY bid DESC "
-				+ "	LIMIT ? OFFSET ?";
+		String sql = "select * from dogs where " + field + " = ? limit ? offset ?";
 		List<Dog> list = new ArrayList<Dog>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -78,14 +72,13 @@ public class DogDao {
 	
 	public void insertDog(Dog dog) {
 		Connection conn = getConnection();
-		String sql = "insert into dog values (default, ?, ?, ?, ?, ?)";
+		String sql = "insert into dog values (default, ?, ?, ?, ?, default)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, dog.getbDate().toString()); // 개 생일을 LocalDate?
+			pstmt.setString(1, dog.getbDate().toString());
 			pstmt.setString(2, dog.getBreed());
 			pstmt.setString(3, dog.getGender());
 			pstmt.setString(4, dog.getDname());
-			pstmt.setString(5, dog.getUId());
 			
 			pstmt.executeUpdate();
 			pstmt.close(); conn.close();
@@ -96,10 +89,10 @@ public class DogDao {
 	
 	public void updateDog(Dog dog) {
 		Connection conn = getConnection();
-		String sql = "update dog set breed=?, dname=?, where dogId=?";
+		String sql = "update dog set bDate=?, breed=?, gender=?, dname=?, where dogId=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, dog.getbDate().toString()); // 개 생일을 ??
+			pstmt.setString(1, dog.getbDate().toString());
 			pstmt.setString(2, dog.getBreed());
 			pstmt.setString(3, dog.getGender());
 			pstmt.setString(4, dog.getDname());
